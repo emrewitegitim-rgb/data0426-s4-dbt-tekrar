@@ -1,21 +1,32 @@
 
 version: 2
 
-models:
-    - name: my_first_dbt_model
-      description: "A starter dbt model"
-      columns:
-          - name: id
-            description: "The primary key for this table"
+sources:
+  - name: raw
+    schema: raw_data_circle
+    tables:
+      - name: parcel
+        identifier: raw_cc_parcel
+        description: Includes information about parcel
+        columns:
+          - name: Parcel_id
+            description: Unique id of the parcel
             tests:
-                - unique
-                - not_null
+              - not_null
+              - unique
+          - name: Transporter
+            description: Carrier name of the parcel
+            tests:
+              - not_null
+      - name: parcel_product
+        identifier: raw_cc_parcel_product
+        description: Product details in the parcel
+        columns:
+          - name: Parcel_id
+            description: Id of the parcel
+            tests:
+              - not_null
+              
+            
+              
 
-    - name: my_second_dbt_model
-      description: "A starter dbt model"
-      columns:
-          - name: id
-            description: "The primary key for this table"
-            tests:
-                - unique
-                - not_null
